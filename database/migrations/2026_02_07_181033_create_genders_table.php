@@ -10,12 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('goal_types', function (Blueprint $table) {
+        Schema::create('genders', function (Blueprint $table) {
             $table->id();
 
-            $table->string('type');
-            $table->text('description');
-            $table->float('calorie_modifier');
+            $table->string('gender');
 
             $table->timestamps();
         });
@@ -26,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('goal_types');
+        Schema::dropIfExists('genders');
     }
 };

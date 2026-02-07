@@ -13,17 +13,21 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('login');
             $table->string('email')->unique();
             $table->string('password');
             $table->decimal('weight', 10, 2);
             $table->float('height')->nullable();
-            $table->enum('gender', ['male', 'female'])->default('male');
 
             $table
                 ->foreignId('role_id')
-                ->nullable()
+                ->default(1)
                 ->constrained('roles')
+                ->cascadeOnUpdate();
+            $table
+                ->foreignId('gender_id')
+                ->default(1)
+                ->constrained('genders')
                 ->cascadeOnUpdate();
             $table
                 ->foreignId('activity_level_id')
@@ -32,7 +36,7 @@ return new class extends Migration {
                 ->cascadeOnUpdate();
             $table
                 ->foreignId('goal_type_id')
-                ->nullable()
+                ->default(3)
                 ->constrained('goal_types')
                 ->cascadeOnUpdate();
 

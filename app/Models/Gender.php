@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GoalType extends Model
+class Gender extends Model
 {
     protected $fillable = [
-        'type',
-        'description',
-        'calorie_modifier',
+        'gender',
     ];
 
     public function user()

@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'login',
         'email',
         'password',
+        'weight',
+        'height',
+        'gender_id',
     ];
 
     /**
@@ -44,5 +47,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function activityLevel()
+    {
+        return $this->belongsTo(ActivityLevel::class);
+    }
+    public function goalType()
+    {
+        return $this->belongsTo(GoalType::class);
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function userRecord()
+    {
+        return $this->hasMany(UserRecord::class);
     }
 }

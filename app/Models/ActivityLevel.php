@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class ActivityLevel extends Model
 {
     protected $fillable = [
-        'level'
+        'level',
+        'description',
+        'multiplier',
     ];
 
     public function user()
