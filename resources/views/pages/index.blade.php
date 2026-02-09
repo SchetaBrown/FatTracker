@@ -11,7 +11,7 @@
                     <span class="text-sm text-gray-600">
                         {{ $value['title'] }}
                     </span>
-                    <span class="text-sm font-medium">{{ $value['value'] }}/{{ $value['normal'] }}</span>
+                    <span class="text-sm font-medium">{{ $value['value'] }}</span>
                 </div>
             </div>
         @endforeach

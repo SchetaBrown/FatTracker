@@ -17,11 +17,33 @@ class UserRecordService implements UserRecordServiceInterface
     private MealRepositoryInterface $mealRepository;
     private ProductRepositoryInterface $productRepository;
     private User $user;
+
     const WEIGHT_CONSTANT = 10;
     const HEIGHT_CONSTANT = 6.25;
     const AGE_CONSTANT = 5;
     const MAN_CONSTANT = 5;
     const WOMAN_CONSTANT = 161;
+    const PROTEIN_CALORIES_PER_GRAM = 4;
+    const FAT_CALORIES_PER_GRAM = 9;
+    const CARB_CALORIES_PER_GRAM = 4;
+
+    // НАСТРОЙКИ ПО ЦЕЛЯМ (белки в г/кг)
+    private const PROTEIN_PER_KG = [
+        1 => 2.0,  // Похудение
+        4 => 2.2,  // Сушка
+        3 => 1.8,  // Набор массы
+        2 => 1.6,  // Поддержание
+        5 => 1.2,  // Улучшение здоровья (ближе к нормам Минздрава)
+    ];
+
+    // Проценты жиров по целям
+    private const FAT_PERCENT = [
+        1 => 0.25, // Похудение: 25%
+        4 => 0.20, // Сушка: 20%
+        3 => 0.30, // Набор: 30%
+        2 => 0.25, // Поддержание: 25%
+        5 => 0.30, // Здоровье: 30%
+    ];
 
     public function __construct(MealRepositoryInterface $mealRepository, ProductRepositoryInterface $productRepository)
     {
@@ -34,26 +56,23 @@ class UserRecordService implements UserRecordServiceInterface
     {
         $meals = $this->mealRepository->getMeals();
         $records = [];
+
         $nutrients = [
             'calories' => [
                 'title' => 'Калории',
                 'value' => 0,
-                'normal' => $this->getUserNormalCalories(),
             ],
             'protein' => [
                 'title' => 'Белки',
                 'value' => 0,
-                'normal' => $this->getUserNormalProtein()
             ],
             'fat' => [
                 'title' => 'Жиры',
                 'value' => 0,
-                'normal' => $this->getUserNormalFat()
             ],
             'carbs' => [
                 'title' => 'Углеводы',
                 'value' => 0,
-                'normal' => $this->getUserNormalCarb()
             ],
         ];
 
@@ -88,10 +107,9 @@ class UserRecordService implements UserRecordServiceInterface
 
     public function setUserRecord($request, $product)
     {
-        // dd(Meal::where('title', $request->meal_id)->orWhere('id', $request->meal_id)->first()->id);
         try {
             if ($request->has('meal_id') || $request->has('meal')) {
-                $record = UserRecord::create([
+                UserRecord::create([
                     'quantity' => $request->quantity,
                     'user_id' => $this->user->id,
                     'meal_id' => Meal::where('title', $request->meal_id)->orWhere('id', $request->meal_id)->first()->id,
@@ -100,54 +118,29 @@ class UserRecordService implements UserRecordServiceInterface
                 ]);
             }
         } catch (Exception $e) {
-            dd($e);
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
     private function getUserNormalCalories()
     {
-        // Формула Миффлина-Сан Жеора для расчета нормы калорий
         $activityLevel = $this->user->activityLevel->multiplier;
         $goal = $this->user->goalType->calorie_modifier;
-
-        // Пользовательские данные
         $weight = $this->user->weight;
         $height = $this->user->height;
         $age = $this->user->age;
 
-
-        $overallData = (self::WEIGHT_CONSTANT * $weight) + (self::HEIGHT_CONSTANT * $height) - (self::AGE_CONSTANT * $age);
+        $overallData = (self::WEIGHT_CONSTANT * $weight) +
+            (self::HEIGHT_CONSTANT * $height) -
+            (self::AGE_CONSTANT * $age);
 
         if ($this->user->gender->gender === 'Мужчина') {
-            return round((($overallData + self::MAN_CONSTANT) * $activityLevel * $goal), 0);
+            $bmr = $overallData + self::MAN_CONSTANT;
         } else {
-            return round((($overallData - self::WOMAN_CONSTANT) * $activityLevel * $goal), 0);
+            $bmr = $overallData - self::WOMAN_CONSTANT;
         }
-    }
 
-    private function getUserNormalProtein()
-    {
-        $weight = $this->user->weight;
-        $protein = $this->user->protein_grams;
-
-        return $weight * $protein;
-    }
-
-    private function getUserNormalFat()
-    {
-        $weight = $this->user->weight;
-        $fat = $this->user->fat_grams;
-
-        return $weight * $fat;
-    }
-
-    private function getUserNormalCarb()
-    {
-        $weight = $this->user->weight;
-        $carb = $this->user->carb_grams;
-
-        return $weight * $carb;
+        return round($bmr * $activityLevel * $goal, 0);
     }
 
     public function destroyProductFromDiet(UserRecord $product)

@@ -3,6 +3,7 @@
 namespace App\Services\Interfaces;
 
 use App\Models\UserRecord;
+use Illuminate\Support\Facades\Auth;
 
 interface UserRecordServiceInterface
 {

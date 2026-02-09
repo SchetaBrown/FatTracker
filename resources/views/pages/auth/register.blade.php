@@ -39,8 +39,8 @@
 
             {{-- Возраст --}}
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
-                <input type="password" name="age" required placeholder="Не менее 6 символов"
+                <label class="block text-sm font-medium text-gray-700 mb-1">Возраст</label>
+                <input type="number" name="age" required placeholder="18-120"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 @error('age') border-red-500 @enderror">
                 @error('age')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

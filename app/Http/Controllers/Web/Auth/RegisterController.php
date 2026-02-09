@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Web\Auth;
 
-use App\Models\ActivityLevel;
+use App\Models\User;
 use App\Models\Gender;
 use App\Models\GoalType;
-use App\Models\User;
-use Auth;
-use Illuminate\Http\Request;
+use App\Models\ActivityLevel;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\RegisterRequest;
 
 class RegisterController extends Controller
@@ -29,7 +28,6 @@ class RegisterController extends Controller
             Auth::login($user);
             return redirect()->route('index');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
