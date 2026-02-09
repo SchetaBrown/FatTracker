@@ -13,7 +13,7 @@
 </head>
 
 <body class="bg-gray-100">
-    @if (!request()->routeIs('product.*'))
+    @if (!request()->routeIs('product.*') && !request()->routeIs('profile.*'))
         @include('partials.header')
     @else
         @include('partials.product-header')

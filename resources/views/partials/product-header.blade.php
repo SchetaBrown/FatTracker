@@ -2,5 +2,11 @@
     <a href="{{ route('index') }}" class="text-gray-600 hover:text-blue-600">
         <i class="fas fa-arrow-left"></i>
     </a>
-    <span class="text-lg font-semibold">Продукты</span>
+    <span class="text-lg font-semibold">
+        @if (request()->routeIs('product.*'))
+            Продукты
+        @else
+            Профиль
+        @endif
+    </span>
 </header>
