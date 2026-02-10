@@ -7,6 +7,7 @@ use App\Models\Gender;
 use App\Models\GoalType;
 use App\Models\ActivityLevel;
 use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserRecordServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Support\Facades\Auth;
@@ -15,24 +16,26 @@ use App\Http\Requests\Auth\RegisterRequest;
 class RegisterController extends Controller
 {
     private UserServiceInterface $userService;
-    public function __construct(UserServiceInterface $userService)
+    private UserRepositoryInterface $userRepository;
+    public function __construct(UserServiceInterface $userService, UserRepositoryInterface $userRepository)
     {
         $this->userService = $userService;
+        $this->userRepository = $userRepository;
     }
 
     public function create()
     {
-        $activityLevels = ActivityLevel::get();
-        $genders = Gender::get();
-        $goals = GoalType::get();
-        return view('pages.auth.register', compact(['activityLevels', 'genders', 'goals']));
+        return view('pages.auth.register', [
+            'activityLevels' => $this->userRepository->getAllActivityLevels(),
+            'genders' => $this->userRepository->getAllGenders(),
+            'goals' => $this->userRepository->getAllGoalTypes(),
+        ]);
     }
 
     public function store(RegisterRequest $request)
     {
         try {
-            $data = $request->validated();
-            $user = User::create($data);
+            $user = $this->userRepository->createUser($request);
             Auth::login($user);
             $this->userService->setUserNormalCalories($user);
             return redirect()->route('index');

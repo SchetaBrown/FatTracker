@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Web\Profile\AboutController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\Profile\AboutController;
 use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
@@ -29,7 +29,6 @@ Route::middleware(['isAuth'])->group(function () {
     // Главная страница
     Route::get('/', [IndexController::class, 'index'])->name('index'); // Главная страница
 
-
     // Управление профилем
     Route::prefix('/profile')->name('profile.')->group(function () {
         //Общая информация
@@ -43,6 +42,7 @@ Route::middleware(['isAuth'])->group(function () {
             Route::patch('/update', 'update')->name('update'); // Обновление цели или активности
         });
 
+        // Дополнительная информация
         Route::get('/about', AboutController::class)->name('about'); // Страница для просмотра дополнительной информации
     });
 
@@ -69,7 +69,7 @@ Route::middleware(['isAdmin'])->prefix('/admin')->name('admin.')->group(function
         Route::get('/create', 'create')->name('create'); // Страница для создания продукта
         Route::post('/store', 'store')->name('store'); // Маршрут для создания продукта
         Route::get('/{product}/edit', 'edit')->name('edit'); // Страница для редактирования продукта
-        Route::patch('/{product}/update')->name('update'); // Маршрут для обновления данных о продукте
+        Route::patch('/{product}/update', 'update')->name('update'); // Маршрут для обновления данных о продукте
         Route::delete('/{product}/destroy', 'destroy')->name('destroy'); // Маршрут для удаления продукта из системы
     });
 

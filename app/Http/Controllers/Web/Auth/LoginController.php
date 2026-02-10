@@ -16,9 +16,7 @@ class LoginController extends Controller
 
     public function store(LoginRequest $request)
     {
-        $data = $request->validated();
-
-        if (Auth::attempt($data)) {
+        if (Auth::attempt($request->validated())) {
             return redirect()->route('index');
         }
 

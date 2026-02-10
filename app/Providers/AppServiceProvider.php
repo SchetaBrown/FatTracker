@@ -2,21 +2,15 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use Auth;
-use Illuminate\Support\Facades\View;
 use App\Services\Interfaces\UserServiceInterface;
-use App\Services\ProductService;
 use App\Services\UserRecordService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
-use App\Services\Interfaces\ProductServiceInterface;
 use App\Services\Interfaces\UserRecordServiceInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
     const BINDINS = [
-        ProductServiceInterface::class => ProductService::class,
         UserRecordServiceInterface::class => UserRecordService::class,
         UserServiceInterface::class => UserService::class
     ];

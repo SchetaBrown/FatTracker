@@ -16,7 +16,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role->role == 'admin') {
+        $user = Auth::user();
+        if (!Auth::check()) {
+            return redirect()->route('login.create');
+        }
+
+        if ($user->role->role == 'admin') {
             return $next($request);
         } else {
             return redirect()->back()->with('error', 'Повысьте уровень доступа');

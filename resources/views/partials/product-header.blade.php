@@ -8,6 +8,11 @@
             Настройки
         @elseif (request()->routeIs('profile.about'))
             Дополнительная информация
+        @elseif (request()->routeIs('admin.*'))
+            <a href="{{ route('admin.index') }}" class="flex items-center gap-2 text-blue-600">
+                <i class="fa-solid fa-book"></i>
+                Админ-панель
+            </a>
         @endif
     </span>
 </header>

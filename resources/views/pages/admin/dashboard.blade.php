@@ -30,7 +30,8 @@
                 </div>
 
                 <div class="space-y-3">
-                    <a href="#add-product" class="block p-3 border rounded hover:bg-gray-50 border-gray-300">
+                    <a href="{{ route('admin.product.create') }}"
+                        class="block p-3 border rounded hover:bg-gray-50 border-gray-300">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <i class="fas fa-plus text-green-600 mr-3"></i>
@@ -40,11 +41,12 @@
                         </div>
                     </a>
 
-                    <a href="#edit-products" class="block p-3 border rounded hover:bg-gray-50 border-gray-300">
+                    <a href="{{ route('admin.product.index') }}"
+                        class="block p-3 border rounded hover:bg-gray-50 border-gray-300">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <i class="fas fa-edit text-blue-600 mr-3"></i>
-                                <span>Редактировать продукты</span>
+                                <i class="fas fa-list text-gray-600 mr-3"></i>
+                                <span>Список продуктов</span>
                             </div>
                             <i class="fas fa-chevron-right text-gray-400"></i>
                         </div>
@@ -65,7 +67,8 @@
                 </div>
 
                 <div class="space-y-3">
-                    <a href="#users-list" class="block p-3 border rounded hover:bg-gray-50 border-gray-300">
+                    <a href="{{ route('admin.user.index') }}"
+                        class="block p-3 border rounded hover:bg-gray-50 border-gray-300">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <i class="fas fa-list text-gray-600 mr-3"></i>

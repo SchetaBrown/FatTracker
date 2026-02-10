@@ -69,7 +69,7 @@
             </div>
         @endforeach
     </section>
-    <section class="mx-auto container mt-10">
+    <section class="flex justify-center mt-10">
         {{ $products->links() }}
     </section>
 @endsection

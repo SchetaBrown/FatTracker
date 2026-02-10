@@ -20,7 +20,6 @@ class IndexController extends Controller
     {
         return view('pages.index', [
             'userRecords' => $this->userRecordService->getDataForIndexPage($request),
-            'user' => Auth::user(),
         ]);
     }
 }
