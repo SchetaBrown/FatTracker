@@ -14,7 +14,7 @@
 
 <body class="bg-gray-100">
     @include('partials.header')
-    <main class="px-12.5 w-full py-25">
+    <main class="px-12.5 w-full py-25 max-md:px-3">
         @yield('content')
     </main>
     @include('partials.footer')

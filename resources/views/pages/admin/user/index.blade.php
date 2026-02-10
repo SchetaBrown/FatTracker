@@ -23,46 +23,48 @@
             </div>
         </form>
         <div class="bg-white rounded border overflow-hidden border-gray-200">
-            <table class="w-full">
-                <thead>
-                    <tr class="bg-gray-50 border-b border-gray-200">
-                        <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Логин</th>
-                        <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Email</th>
-                        <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Роль</th>
-                        <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Пол</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr class="border-b hover:bg-gray-50 border-gray-200">
-                            <td class="py-3 px-4">
-                                <div class="font-medium">{{ $user->login }}</div>
-                            </td>
-                            <td class="py-3 px-4 text-sm text-gray-600">
-                                {{ $user->email }}
-                            </td>
-                            <td class="py-3 px-4">
-                                <form action="{{ route('admin.user.update', ['user' => $user]) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <select name="role_id"
-                                        class="text-sm border rounded px-2 py-1 bg-gray-50 border-gray-200"
-                                        onchange="this.form.submit()">
-                                        @foreach ($roles as $role)
-                                            <option value="{{ $role->id }}" @selected($role->id === $user->role_id)>
-                                                {{ $role->role === 'admin' ? 'Администратор' : 'Пользователь' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </form>
-                            </td>
-                            <td class="py-3 px-4 text-sm">
-                                {{ $user->gender->gender }}
-                            </td>
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-200">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200">
+                            <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Логин</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Email</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Роль</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium text-gray-700">Пол</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr class="border-b hover:bg-gray-50 border-gray-200">
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">{{ $user->login }}</div>
+                                </td>
+                                <td class="py-3 px-4 text-sm text-gray-600">
+                                    {{ $user->email }}
+                                </td>
+                                <td class="py-3 px-4">
+                                    <form action="{{ route('admin.user.update', ['user' => $user]) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="role_id"
+                                            class="text-sm border rounded px-2 py-1 bg-gray-50 border-gray-200"
+                                            onchange="this.form.submit()">
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}" @selected($role->id === $user->role_id)>
+                                                    {{ $role->role === 'admin' ? 'Администратор' : 'Пользователь' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </form>
+                                </td>
+                                <td class="py-3 px-4 text-sm">
+                                    {{ $user->gender->gender }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <div class="flex items-center justify-center gap-3">
                 {{ $users->links() }}
             </div>

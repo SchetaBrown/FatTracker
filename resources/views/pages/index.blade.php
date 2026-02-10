@@ -8,7 +8,7 @@
 @endphp
 
 @section('content')
-    <section class="flex items-center gap-4 mb-4">
+    <section class="flex items-center gap-4 mb-4 max-sm:flex-col">
         <div class="flex flex-col gap-0.5">
             <h1 class="font-semibold text-xl">Дневник питания</h1>
             <span class="block text-sm font-medium text-gray-700 mb-1">Дата: {{ $userRecords['current_day'] }}</span>

@@ -37,7 +37,7 @@
                     class="w-full px-3 py-2 border rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 border-gray-200">{{ $product->description }}</textarea>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Калории *

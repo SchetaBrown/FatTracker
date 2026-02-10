@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    @include('partials.profile-user')
+    @include('partials.profile-nav')
     <section class="w-full bg-white p-6 rounded-xl border border-gray-200 shadow-sm mb-4">
         <h2 class="font-medium mb-4">Личная информация</h2>
         <div class="flex flex-col gap-2">
@@ -45,7 +45,7 @@
             </div>
         </div>
     </section>
-    <section class="grid grid-cols-2 gap-5">
+    <section class="grid grid-cols-2 gap-5 max-md:grid-cols-1">
         <div class="bg-white rounded-xl shadow-sm p-6">
             <h2 class="font-medium mb-4">Цель и активность</h2>
             <div class="flex flex-col mb-2">

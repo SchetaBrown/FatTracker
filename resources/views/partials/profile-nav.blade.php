@@ -1,5 +1,5 @@
 <nav>
-    <ul class="flex justify-center gap-4">
+    <ul class="flex justify-center gap-4 max-md:flex-col">
         <li class="flex justify-center">
             <a href="{{ route('profile.index') }}"
                 class=" py-3 text-center font-medium text-gray-600 hover:text-blue-600">

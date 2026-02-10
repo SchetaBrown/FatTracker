@@ -4,14 +4,14 @@
 @endsection
 
 @section('content')
-    @include('partials.profile-user')
-    <section class="grid grid-cols-2 gap-6">
+    @include('partials.profile-nav')
+    <section class="grid grid-cols-2 gap-6 max-md:grid-cols-1">
         <div class="w-full p-6 rounded-xl bg-white shadow-sm border border-gray-100">
             <h2 class="text-lg font-semibold text-gray-800 mb-6">Настройки питания</h2>
 
             <div class="space-y-6">
                 <div class="space-y-2">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between max-md:flex-col">
                         <label for="activity_level" class="text-sm font-medium text-gray-700">
                             Уровень активности
                         </label>
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="space-y-2">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between max-md:flex-col">
                         <label for="goal_type" class="text-sm font-medium text-gray-700">
                             Цель
                         </label>
@@ -103,7 +103,8 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="{{ $user->weight }}" class="text-sm font-medium text-gray-700">Вес (в кг)</label>
-                        <input type="number" name="weight" value="{{ $user->weight }}"
+                        <input type="number" name="weight" value="{{ $user->weight }}" step="any" min="30"
+                            max="200"
                             class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white transition-colors hover:border-gray-400">
                     </div>
                     <div class="flex flex-col gap-2">
