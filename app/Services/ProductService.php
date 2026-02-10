@@ -21,12 +21,17 @@ class ProductService implements ProductServiceInterface
     public function all(Request $request, $pagination = 10)
     {
         $products = $this->productRepository->get()->query();
-        if ($request->has('search_category')) {
-            if ($request->search_category !== '#') {
-                $products->where('product_category_id', $request->search_category);
+
+        if ($request->has('category')) {
+            if ($request->category !== '#') {
+                $products->where('product_category_id', $request->category);
             }
         }
 
-        return $products->paginate($pagination);
+        if ($request->has("title")) {
+            $products->where('title', 'LIKE', "%{$request->title}%");
+        }
+
+        return $products->paginate($pagination)->withQueryString();
     }
 }
