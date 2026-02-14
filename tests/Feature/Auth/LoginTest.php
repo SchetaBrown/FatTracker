@@ -21,7 +21,7 @@ class LoginTest extends TestCase
         $response->assertRedirect(route('login.create'));
     }
 
-    public function test_user_can_login_with_login_field()
+    public function test_user_can_login_with_success_credentials()
     {
         $role = Role::create(['role' => 'admin']);
         $gender = Gender::create(['gender' => 'Мужчина']);

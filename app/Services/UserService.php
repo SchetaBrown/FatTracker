@@ -27,11 +27,7 @@ class UserService implements UserServiceInterface
 
         $BMR = self::WEIGHT_CONSTANT * $weight + self::HEIGHT_CONSTANT * $height - self::AGE_CONSTANT * $age;
 
-        if ($gender === 'Мужчина') {
-            $BMR += self::MAN_CONSTANT;
-        } else if ($gender === 'Женщина') {
-            $BMR -= self::WOMAN_CONSTANT;
-        }
+        $gender === 'Мужчина' ? $$BMR += self::MAN_CONSTANT : $BMR -= self::WOMAN_CONSTANT;
 
         $user->update([
             'normal_calories' => round($BMR * $activityLevel * $goal, 0),

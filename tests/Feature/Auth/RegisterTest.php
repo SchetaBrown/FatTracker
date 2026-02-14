@@ -71,7 +71,6 @@ class RegisterTest extends TestCase
             'login' => 'user' . time(),
             'email' => 'user' . time() . '@gmail.com',
             'password' => '123123123',
-            'password_confirmation' => '123123123',
             'age' => 24,
             'height' => 178,
             'weight' => 63,
